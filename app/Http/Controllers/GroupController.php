@@ -7,15 +7,14 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Requests\GroupRequest;
 
-class GroupController extends Controller
-{
+class GroupController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $groups = Group::all();
+        $groups = Group::latest()->get();
         return view('groups.index', ['groups' => $groups]);
     }
 
@@ -35,7 +34,7 @@ class GroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(GroupRequest $request){
+    public function store(GroupRequest $request) {
         $company = Company::find($request->company);
         $company->groups()->create([
             'name' => $request->name,
@@ -52,8 +51,7 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show(Group $group)
-    {
+    public function show(Group $group) {
         //
     }
 
@@ -75,8 +73,7 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function update(GroupRequest $request, Group $group)
-    {
+    public function update(GroupRequest $request, Group $group) {
         //
     }
 
@@ -86,8 +83,7 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Group $group)
-    {
+    public function destroy(Group $group) {
         //
     }
 }
