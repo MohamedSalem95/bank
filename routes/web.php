@@ -20,3 +20,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('companies', App\Http\Controllers\CompanyController::class);
 Route::resource('groups', App\Http\Controllers\GroupController::class);
+
+// currency routes
+Route::get('/currencies', [App\Http\Controllers\CurrencyController::class, 'currency'])->name('currencies');

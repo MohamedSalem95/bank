@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-info border-bottom">
+<nav class="navbar navbar-expand-md navbar-dark bg-info border-bottom sticky-top">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
         <i class="fas fa-coins"></i> {{ config('app.name') }}
@@ -25,6 +25,12 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-code-branch"></i> Branch Master
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('currencies') }}" class="nav-link">
+                        <i class="fas fa-pound-sign"></i> Currencies
                     </a>
                 </li>
             </ul>
