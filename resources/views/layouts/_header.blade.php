@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-info border-bottom sticky-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-info sticky-top">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
         <i class="fas fa-coins"></i> {{ config('app.name') }}
@@ -9,31 +9,40 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a href="{{ route('companies.index') }}" class="nav-link active">
-                        <i class="fas fa-building"></i> Company Master
-                    </a>
-                </li>
+            @auth
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="{{ route('companies.index') }}" class="nav-link active">
+                            <i class="fas fa-building"></i> Company Master
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('groups.index') }}" class="nav-link">
-                    <i class="fas fa-users"></i> Group Master
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ route('groups.index') }}" class="nav-link">
+                        <i class="fas fa-users"></i> Group Master
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-code-branch"></i> Branch Master
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-code-branch"></i> Branch Master
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('currencies') }}" class="nav-link">
-                        <i class="fas fa-pound-sign"></i> Currencies
-                    </a>
-                </li>
-            </ul>
+                    <li class="nav-item">
+                        <a href="{{ route('currencies.index') }}" class="nav-link">
+                            <i class="fas fa-pound-sign"></i> Currencies
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a href="{{ route('currencies') }}" class="nav-link">
+                            <i class="fas fa-pound-sign"></i> Currencies Api
+                        </a>
+                    </li>
+                </ul>
+            @endauth
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -62,12 +71,16 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                            <a href="{{ route('profile', ['id' => Auth::user()->id]) }}" class="dropdown-item">
+                                <i class="fas fa-user"></i> Pofile
                             </a>
 
+                            <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
+                            </a>
+                            
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>

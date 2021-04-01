@@ -68,7 +68,7 @@
     
 </div>
 @method('PUT')
-<button type="submit" class="btn btn-success"> Save Company </button>
+<button type="submit" class="btn btn-success"> Update Company </button>
 
 </form>
 

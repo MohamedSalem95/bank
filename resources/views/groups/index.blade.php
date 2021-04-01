@@ -28,8 +28,8 @@
         @forelse($groups as $group)
             <tr>
                 <td> {{ $group->name }} </td>
-                <td> <b class="text-success"> {{ $group->company->name }} </b> </td>
-                <td class="@if($group->status == 'inactive') text-danger font-weight-bold @endif"> {{ $group->status }} </td>
+                <td> <b class=""> {{ $group->company->name }} </b> </td>
+                <td class="@if($group->status == 'inactive') text-danger @else text-success @endif font-weight-bold"> {{ $group->status }} </td>
                 <td>
                     <a href="{{ route('groups.edit', ['group' => $group->id]) }}">
                         <i class="fas fa-edit"></i> Edit

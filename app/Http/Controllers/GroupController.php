@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests\GroupRequest;
 
 class GroupController extends Controller {
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -74,7 +78,8 @@ class GroupController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(GroupRequest $request, Group $group) {
-        //
+        $group->update($request->all());
+        return redirect(route('groups.index'))->with('success', 'Updated Group Successfully.');
     }
 
     /**

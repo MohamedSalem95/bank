@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 // models
 use App\Models\Company;
 use App\Models\Group;
+use App\Models\Currency;
 
 class User extends Authenticatable
 {
@@ -51,5 +52,9 @@ class User extends Authenticatable
 
     public function groups() {
         return $this->hasMany(Group::class);
+    }
+
+    public function currencies() {
+        return $this->hasMany(Currency::class);
     }
 }

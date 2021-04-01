@@ -1,9 +1,20 @@
 <template>
     <div class="">
        <p v-if="loading">
-           <b class="text-muted"> Fetching Currencies Please Wait ... </b>
+           <b class="text-muted"> 
+               <div class="spinner-border spinner-border-sm" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div> Fetching Currencies Please Wait ... 
+            </b>
        </p>
        <div v-if="currencies.length != 0">
+           <p>
+               <b class="text-muted">
+                   Total of 
+                    <u class="text-dark "> 
+                       {{ currencies.length }} 
+                    </u> currency(ies) </b>
+           </p>
            <table class="table table-sm table-striped table-bordered table-hover">
                <thead>
                    <th> Currency </th>
@@ -11,7 +22,7 @@
                </thead>
 
                <tbody>
-                    <tr v-for="currency in currencies" :key="currency.iso">
+                    <tr v-for="currency in currencies" :key="currency.iso" style="cursor: pointer">
                             <td> {{ currency.iso }} </td>
                             <td> {{ currency.currency_name }} </td>
                     </tr>
@@ -20,7 +31,11 @@
        </div>
            
        <p v-if="error">
-           <b class="text-danger"> Some error Happended please Reload Page! </b>
+           <b class="text-danger"> 
+               Some error Happended please Reload Page! 
+               or click 
+               <a href="http://127.0.0.1:8000/currencies_list"> HERE </a>
+            </b>
        </p>
     </div>
 </template>

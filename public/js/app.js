@@ -1872,6 +1872,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -37462,16 +37477,24 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {}, [
-    _vm.loading
-      ? _c("p", [
-          _c("b", { staticClass: "text-muted" }, [
-            _vm._v(" Fetching Currencies Please Wait ... ")
-          ])
-        ])
-      : _vm._e(),
+    _vm.loading ? _c("p", [_vm._m(0)]) : _vm._e(),
     _vm._v(" "),
     _vm.currencies.length != 0
       ? _c("div", [
+          _c("p", [
+            _c("b", { staticClass: "text-muted" }, [
+              _vm._v("\n               Total of \n                "),
+              _c("u", { staticClass: "text-dark " }, [
+                _vm._v(
+                  " \n                   " +
+                    _vm._s(_vm.currencies.length) +
+                    " \n                "
+                )
+              ]),
+              _vm._v(" currency(ies) ")
+            ])
+          ]),
+          _vm._v(" "),
           _c(
             "table",
             {
@@ -37479,18 +37502,22 @@ var render = function() {
                 "table table-sm table-striped table-bordered table-hover"
             },
             [
-              _vm._m(0),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "tbody",
                 _vm._l(_vm.currencies, function(currency) {
-                  return _c("tr", { key: currency.iso }, [
-                    _c("td", [_vm._v(" " + _vm._s(currency.iso) + " ")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(" " + _vm._s(currency.currency_name) + " ")
-                    ])
-                  ])
+                  return _c(
+                    "tr",
+                    { key: currency.iso, staticStyle: { cursor: "pointer" } },
+                    [
+                      _c("td", [_vm._v(" " + _vm._s(currency.iso) + " ")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(" " + _vm._s(currency.currency_name) + " ")
+                      ])
+                    ]
+                  )
                 }),
                 0
               )
@@ -37499,16 +37526,26 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.error
-      ? _c("p", [
-          _c("b", { staticClass: "text-danger" }, [
-            _vm._v(" Some error Happended please Reload Page! ")
-          ])
-        ])
-      : _vm._e()
+    _vm.error ? _c("p", [_vm._m(2)]) : _vm._e()
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("b", { staticClass: "text-muted" }, [
+      _c(
+        "div",
+        {
+          staticClass: "spinner-border spinner-border-sm",
+          attrs: { role: "status" }
+        },
+        [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+      ),
+      _vm._v(" Fetching Currencies Please Wait ... \n        ")
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -37517,6 +37554,19 @@ var staticRenderFns = [
       _c("th", [_vm._v(" Currency ")]),
       _vm._v(" "),
       _c("th", [_vm._v(" Currency Name ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("b", { staticClass: "text-danger" }, [
+      _vm._v(
+        " \n           Some error Happended please Reload Page! \n           or click \n           "
+      ),
+      _c("a", { attrs: { href: "http://127.0.0.1:8000/currencies_list" } }, [
+        _vm._v(" HERE ")
+      ])
     ])
   }
 ]

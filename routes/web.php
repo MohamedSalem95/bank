@@ -22,4 +22,9 @@ Route::resource('companies', App\Http\Controllers\CompanyController::class);
 Route::resource('groups', App\Http\Controllers\GroupController::class);
 
 // currency routes
-Route::get('/currencies', [App\Http\Controllers\CurrencyController::class, 'currency'])->name('currencies');
+Route::get('/currencies_list', [App\Http\Controllers\CurrencyController::class, 'currency'])->name('currencies');
+
+
+// user profile
+Route::get('/profile/{id}', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+Route::resource('currencies', App\Http\Controllers\CurrencyController::class);

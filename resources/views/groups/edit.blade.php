@@ -60,7 +60,7 @@
             @endforeach
         </div>
 
-        <button type="submit" class="btn btn-success"> Save group </button>
+        <button type="submit" class="btn btn-success"> Update group </button>
 
     </form>
 
