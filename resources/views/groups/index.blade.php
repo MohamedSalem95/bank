@@ -41,8 +41,10 @@
 
             <tr>
                 <td colspan="4">
-                   <b class="text-muted">  No groups Here yet.. 
-                    you can may create a new one <a href="{{ route('groups.create') }}"> Here </a>  </b> 
+                  <p class="text-center">
+                  <b class="text-muted">  No groups Here yet.. 
+                    you can may create a new one <a href="{{ route('groups.create') }}"> Here </a>  </b>
+                  </p> 
                 </td>
             </tr>
 

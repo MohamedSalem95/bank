@@ -94,12 +94,14 @@
 
         @empty
             <tr>
-                <td>
-                    <b class="text-muted">
-                        No Companies Here Yet.. Please Consider Creating New One
+                <td clospan="5">
+                    <p class="text-center">
+                        <b class="text-muted">
+                            No Companies Here Yet.. Please Consider Creating New One
 
-                        <a href="{{ route('companies.create') }}"> Here </a>
-                    </b>
+                            <a href="{{ route('companies.create') }}"> Here </a>
+                        </b>
+                    </p>
                 </td>
             </tr>
                 

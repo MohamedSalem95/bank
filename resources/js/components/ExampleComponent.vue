@@ -34,7 +34,7 @@
            <b class="text-danger"> 
                Some error Happended please Reload Page! 
                or click 
-               <a href="http://127.0.0.1:8000/currencies_list"> HERE </a>
+               <a href="http://currencymaster.herokuapp.com/companies"> HERE </a>
             </b>
        </p>
     </div>
