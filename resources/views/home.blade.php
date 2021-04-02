@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h5> Welcome {{ Auth::user()->name }} to Your Dashboard! 🦄 </h5>
+<h5> Welcome <b class="text-capitalize"> {{ Auth::user()->name }} </b> to Your Dashboard! 🦄 </h5>
 @if (session('status'))
     <div class="alert alert-success" role="alert">
         {{ session('status') }}
@@ -25,7 +25,7 @@
             <div class="card text-white bg-success">
                 <div class="card-body">
                     <p class="card-text h1">
-                        15 Branches
+                        0 Branches
                     </p>
                 </div>
             </div>  
