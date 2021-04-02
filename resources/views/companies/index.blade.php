@@ -93,15 +93,15 @@
             </tr>
 
         @empty
+            <tr>
+                <td>
+                    <b class="text-muted">
+                        No Companies Here Yet.. Please Consider Creating New One
 
-            
-                <p>
-                <b>
-                    No Companies Here Yet.. Please Consider Creating New One
-
-                    <a href="{{ route('companies.create') }}"> Here </a>
-                </b>
-            </p>
+                        <a href="{{ route('companies.create') }}"> Here </a>
+                    </b>
+                </td>
+            </tr>
                 
             
         @endforelse

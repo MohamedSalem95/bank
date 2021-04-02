@@ -36,7 +36,7 @@
 
                     @empty
                         <tr>
-                            <td colspan="2">
+                            <td colspan="3">
                                 <p class="text-muted text-center"> <b> No currencies here yet.. </b> </p>
                             </td>
                         </tr>
