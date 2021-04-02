@@ -94,7 +94,7 @@
 
         @empty
             <tr>
-                <td clospan="5">
+                <td colspan="5">
                     <p class="text-center">
                         <b class="text-muted">
                             No Companies Here Yet.. Please Consider Creating New One
