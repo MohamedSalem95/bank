@@ -1897,6 +1897,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var baseUrl = 'http://127.0.0.1:8000';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -1908,7 +1931,15 @@ var baseUrl = 'http://127.0.0.1:8000';
       error: false,
       saving: false,
       success: false,
-      exchange: {}
+      loadingRate: false,
+      liveRateError: false,
+      updated: false,
+      exchange: {},
+      fieldErrors: {
+        rate: '',
+        sell_margin: '',
+        buy_margin: ''
+      }
     };
   },
   mounted: function mounted() {
@@ -1935,7 +1966,6 @@ var baseUrl = 'http://127.0.0.1:8000';
       var _this2 = this;
 
       event.preventDefault();
-      this.saving = true;
       var updateData = {
         from: this.exchange.from,
         to: this.exchange.to,
@@ -1945,21 +1975,55 @@ var baseUrl = 'http://127.0.0.1:8000';
         buy_margin: this.exchange.buy_margin,
         buy: this.compBuy
       };
+      this.fieldErrors = this.validateForm(updateData);
+      if (Object.keys(this.fieldErrors).length) return;
+      this.saving = true;
       axios.put("".concat(baseUrl, "/exchanges/").concat(this.id), updateData).then(function (res) {
         _this2.saving = false;
-        if (res.data.status === 'success') _this2.success = true;
-        setTimeout(function () {
-          _this2.success = false;
-        }, 3000);
 
-        _this2.clearForm();
+        if (res.data.status === 'success') {
+          _this2.success = true;
+          _this2.updated = true;
+          setTimeout(function () {
+            _this2.success = false;
+          }, 3000);
+
+          _this2.clearForm();
+        }
       })["catch"](function (err) {
         _this2.saving = false;
         console.log('error');
       });
     },
+    validateForm: function validateForm(fields) {
+      var errors = {};
+      if (fields.rate === 0) errors.rate = "Invalid Rate";
+      if (fields.sell_margin === '') errors.rate = "Invalid Margin";
+      if (fields.buy_margin === '') errors.rate = "Invalid Margin";
+      return errors;
+    },
     clearForm: function clearForm() {
       this.exchange = {};
+    },
+    pullLiveRate: function pullLiveRate() {
+      var _this3 = this;
+
+      this.exchange.rate = 0;
+      this.loadingRate = true;
+      axios.get("https://xecdapi.xe.com/v1/convert_from.json/?from=".concat(this.exchange.from, "&to=").concat(this.exchange.to, "&amount=1"), {
+        auth: {
+          username: 'mohamedsalem35114584',
+          password: 'nbnpgpn51ult5f8259vgn8kei'
+        }
+      }).then(function (res) {
+        _this3.loadingRate = false;
+        _this3.liveRateError = false;
+        _this3.exchange.rate = res.data.to[0].mid;
+      })["catch"](function (err) {
+        _this3.loadingRate = false;
+        _this3.exchange.rate = 0;
+        _this3.liveRateError = true;
+      });
     }
   }
 });
@@ -38154,7 +38218,59 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(" " + _vm._s(_vm.exchange.to) + " ")]),
             _vm._v(" "),
-            _c("td", [_vm._v(" " + _vm._s(_vm.exchange.rate) + " ")]),
+            _c("td", [
+              _vm.loadingRate
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "spinner-border spinner-border-sm",
+                      attrs: { role: "status" }
+                    },
+                    [
+                      _c("span", { staticClass: "sr-only" }, [
+                        _vm._v("Loading...")
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.liveRateError
+                ? _c("b", { staticClass: "text-danger" }, [_vm._v(" Error ")])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.exchange.rate != 0
+                ? _c("span", [_vm._v(" " + _vm._s(_vm.exchange.rate) + " ")])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "small",
+                {
+                  staticStyle: { cursor: "pointer" },
+                  on: {
+                    click: function($event) {
+                      return _vm.pullLiveRate()
+                    }
+                  }
+                },
+                [
+                  _c("b", { staticClass: "text-info" }, [
+                    _vm._v(" Pull live rate ")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("b", { staticClass: "text-danger" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.fieldErrors.rate) +
+                    "\n                "
+                )
+              ])
+            ]),
             _vm._v(" "),
             _c("td", [
               _c("input", {
@@ -38168,7 +38284,7 @@ var render = function() {
                 ],
                 staticClass: "form-control d-inline",
                 staticStyle: { width: "100px" },
-                attrs: { value: "exchange.sellMargin", type: "text" },
+                attrs: { type: "text" },
                 domProps: { value: _vm.exchange.sell_margin },
                 on: {
                   input: function($event) {
@@ -38180,8 +38296,19 @@ var render = function() {
                 }
               }),
               _vm._v(
-                "\n                " + _vm._s(_vm.compSell) + "\n            "
-              )
+                "\n                " +
+                  _vm._s(_vm.compSell) +
+                  "\n                "
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c("b", { staticClass: "text-danger" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.fieldErrors.sell_margin) +
+                    "\n                "
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("td", [
@@ -38208,12 +38335,23 @@ var render = function() {
                 }
               }),
               _vm._v(
-                "\n                " + _vm._s(_vm.compBuy) + "\n            "
-              )
+                "\n                " +
+                  _vm._s(_vm.compBuy) +
+                  "\n                "
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c("b", { staticClass: "text-danger" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.fieldErrors.buy_margin) +
+                    "\n                "
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("td", [
-              _vm.error
+              _vm.error || _vm.updated
                 ? _c(
                     "button",
                     {
@@ -38224,7 +38362,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              !_vm.error && !_vm.saving
+              !_vm.error && !_vm.saving && !_vm.updated
                 ? _c("button", { staticClass: "btn btn-sm btn-success" }, [
                     _vm._v(" Update ")
                   ])
@@ -38257,16 +38395,7 @@ var render = function() {
     _vm._v(" "),
     _vm.loading
       ? _c("h5", [
-          _vm.loading
-            ? _c(
-                "div",
-                {
-                  staticClass: "spinner-border spinner-border-sm",
-                  attrs: { role: "status" }
-                },
-                [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
-              )
-            : _vm._e(),
+          _vm._m(2),
           _vm._v("\n        Loading The Exchange Please Wait.\n    ")
         ])
       : _vm._e(),
@@ -38296,6 +38425,19 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v(" Action ")])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "spinner-border spinner-border-sm",
+        attrs: { role: "status" }
+      },
+      [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+    )
   },
   function() {
     var _vm = this
