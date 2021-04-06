@@ -41,6 +41,14 @@
                             <i class="fas fa-pound-sign"></i> Currencies Api
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('exchanges.index') }}" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i> Exchange
+                        </a>
+                    </li>
+
+                    
                 </ul>
             @endauth
 

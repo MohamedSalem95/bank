@@ -2,7 +2,10 @@
 
 @section('content')
     <h2> Edit group </h2>
-    <form action="{{ route('groups.update', ['group' => $group->id]) }}" method="post">
+    <div class="row">
+        <div class="col">
+            <div class="bg-light p-3 border-radius-10">
+            <form action="{{ route('groups.update', ['group' => $group->id]) }}" method="post">
         @csrf
         @method('PUT')
 
@@ -63,5 +66,8 @@
         <button type="submit" class="btn btn-success"> Update group </button>
 
     </form>
+            </div>
+        </div>
+    </div>
 
 @stop

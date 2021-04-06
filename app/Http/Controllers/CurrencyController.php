@@ -18,7 +18,7 @@ class CurrencyController extends Controller {
     }
 
     public function index(Request $request) {
-        $currencies = Currency::orderBy('iso')->paginate(5);
+        $currencies = Currency::orderBy('iso')->paginate(15);
         return View('currencies.index', ['currencies' => $currencies]);
     }
 
@@ -43,5 +43,10 @@ class CurrencyController extends Controller {
     public function destroy(Currency $currency) {
         $currency->delete();
         return redirect(route('currencies.index'))->with('success', 'Currency Deleted Successfully!!');
+    }
+
+    public function currency_list() {
+        $currencies = Currency::orderBy('iso')->get();
+        return response()->json(['currencies' => $currencies]);
     }
 }

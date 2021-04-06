@@ -84,7 +84,7 @@
                     <form class="d-inline" action="{{ route('companies.destroy', ['company' => $company->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                        <button type="submit" onClick="return confirm('Are you Sure?')"  class="btn btn-sm btn-outline-danger">
                         <i class="fas fa-trash-alt"></i> Delete
                         </button>
 

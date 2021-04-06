@@ -2,8 +2,12 @@
 
 
 @section('content')
-<h2> Edit Company </h2>
-<form action="{{ route('companies.update', ['company' => $company->id]) }}" method="post">
+    <h2> Edit Company </h2>
+
+    <div class="row">
+        <div class="col">
+            <div class="bg-light p-3 border-radius-10">
+            <form action="{{ route('companies.update', ['company' => $company->id]) }}" method="post">
 
 @csrf
 
@@ -71,5 +75,8 @@
 <button type="submit" class="btn btn-success"> Update Company </button>
 
 </form>
+            </div>
+        </div>
+    </div>
 
 @stop

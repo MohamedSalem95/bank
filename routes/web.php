@@ -28,3 +28,9 @@ Route::get('/currencies_list', [App\Http\Controllers\CurrencyController::class, 
 // user profile
 Route::get('/profile/{id}', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::resource('currencies', App\Http\Controllers\CurrencyController::class);
+Route::get('/currency_list_json', [App\Http\Controllers\CurrencyController::class, 'currency_list'])->name('currency_list_json');
+
+
+// exchange
+Route::get('/exchanges/exchange_list', [App\Http\Controllers\ExchangeController::class, 'exchange_list']);
+Route::resource('exchanges', App\Http\Controllers\ExchangeController::class);
