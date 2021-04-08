@@ -5,6 +5,7 @@
 </template>
 
 <script>
+let baseUrl = 'http://currencymaster.herokuapp.com/'
     export default {
         data () {
             return {
@@ -15,7 +16,7 @@
         },
         mounted() {
             this.loading = true
-            axios.get('http://127.0.0.1:8000/exchanges/exchange_list').then(res => {
+            axios.get(`${baseUrl}/exchanges/exchange_list`).then(res => {
                 this.loading = false
                 this.exchanges = res.data.exchanges
             }).catch(err => {

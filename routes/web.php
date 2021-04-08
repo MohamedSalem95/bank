@@ -32,5 +32,6 @@ Route::get('/currency_list_json', [App\Http\Controllers\CurrencyController::clas
 
 
 // exchange
+Route::get('/exchanges/screen1', [App\Http\Controllers\ExchangeController::class, 'screen1'])->name('screen1');
 Route::get('/exchanges/exchange_list', [App\Http\Controllers\ExchangeController::class, 'exchange_list']);
 Route::resource('exchanges', App\Http\Controllers\ExchangeController::class);

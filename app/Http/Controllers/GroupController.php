@@ -18,8 +18,9 @@ class GroupController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $groups = Group::latest()->get();
-        return view('groups.index', ['groups' => $groups]);
+        $groups = Group::latest()->paginate(15);
+        $group_count = Group::count();
+        return view('groups.index', ['groups' => $groups, 'group_count' => $group_count]);
     }
 
     /**

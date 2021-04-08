@@ -24,7 +24,7 @@ class CurrencyRequest extends FormRequest
     public function rules()
     {
         return [
-            'iso' => 'required|min:2|max:3',
+            'iso' => 'required|min:2|max:3|unique:currencies',
             'name' => 'required'
         ];
     }

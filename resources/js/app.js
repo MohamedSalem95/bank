@@ -7,7 +7,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
-window.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+// window.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 // window.Header().Set("Access-Control-Allow-Origin", "*")
 

@@ -16,7 +16,7 @@
                     <tr>
                         <td>
                              
-                            <select name="from" id="" v-model="from" class="form-control d-inline">
+                            <select name="from" id="" v-model="from" class="form-control d-inline" @change="fromChanged()">
                                 <option value="" selected> -- Select Currency -- </option>
                                 <option v-for="currency in currencies" :key="currency.id" class="font-weight-bold"> {{ currency.iso }} </option>
                                 <div>
@@ -26,13 +26,15 @@
                         </td>
 
                          <td>
+                             <!--
                             <select name="to" id="" v-model="to" class="form-control d-inline" @change="toChanged()">
                                 <option value="" selected> -- Select Currency -- </option>
                                 <option v-for="currency in currencies" :key="currency.id" class="font-weight-bold"> {{ currency.iso }} </option>
                                 <div>
                                     <strong class="text-danger"> {{ fieldErrors.to }} </strong>
                                 </div>
-                            </select>
+                            </select> -->
+                            EGP
                         </td>
 
                         <td>
@@ -81,6 +83,9 @@
            <p v-if="savingError">
                <b class="text-danger"> Error Exhange Not Saved Please Try Again. </b>
            </p>
+           <p v-if="validationError">
+               <b class="text-danger"> Error Data Not Valid Please Enter Valid Data. </b>
+           </p>
 
 
            <div>
@@ -124,6 +129,7 @@
 </template>
 
 <script>
+let baseUrl = 'http://currencymaster.herokuapp.com/'
     export default {
         data () {
             return {
@@ -133,13 +139,14 @@
                 currencies: [],
                 latestExchanges: [],
                 from: '',
-                to: '',
+                to: 'EGP',
                 rate: 0,
                 error: false,
                 sellMargin: 0,
                 buyMargin: 0,
                 success: false,
                 savingError: false,
+                validationError: false,
                 fieldErrors: {
                     from: '',
                     to: '',
@@ -150,15 +157,17 @@
             }
         },
         methods: {
-            toChanged() {
+            fromChanged() {
                 this.rate = 0
                 this.loading = true
+                this.error = false
                 axios.get(
-                    `https://xecdapi.xe.com/v1/convert_from.json/?from=${this.from}&to=${this.to}&amount=1`,
-                    { auth: { username: 'mohamedsalem35114584', password: 'nbnpgpn51ult5f8259vgn8kei' } }
+                    `https://xecdapi.xe.com/v1/convert_from.json/?from=${this.from}&to=EGP&amount=1`,
+                    { auth: { username: 'co493817284', password: 'lkbd1toj4pr99ce9gauem8nkoq' },
+                    headers: { 'Cross-Origin': true } }
                 ).then(res => {
                     this.loading = false
-                    this.error = false
+                    // this.error = false
                     this.rate = parseFloat(res.data.to[0].mid)
                     // console.log(res.data)
                 }).catch(err => {
@@ -183,15 +192,25 @@
                 this.fieldErrors = this.validateForm(exchangeData)
                 if(Object.keys(this.fieldErrors).length) return
                 this.saving = true
-                axios.post('http://127.0.0.1:8000/exchanges', exchangeData).then(res => {
-                    if(res.data.status == 'success') console.log('done')
-                    this.success = true
-                    this.saving = false
-                    this.clearForm()
-                    let newExchange = res.data.exchange
-                    newExchange.new = true
-                    this.latestExchanges.splice(0, 0, newExchange)
-                    setTimeout(() => { this.success = false }, 3000)
+                axios.post(`${baseUrl}/exchanges`, exchangeData).then(res => {
+                    if(res.status === 200){
+                        // console.log('done')
+                        this.success = true
+                        this.saving = false
+                        this.clearForm()
+                        let newExchange = res.data.exchange
+                        newExchange.new = true
+                        this.latestExchanges.splice(0, 0, newExchange)
+                        setTimeout(() => { this.success = false }, 3000)
+                    } else if( res.status == 400 || res.status == 422 ) {
+                        this.validationError = true
+                        this.saving = false
+                        setTimeout(() => { this.validationError = false }, 3000)
+                    } else {
+                        this.savingError = true
+                        this.saving = false
+                        setTimeout(() => { this.savingError = false }, 3000)
+                    }
                 }).catch(err => {
                     this.savingError = true
                     this.saving = false
@@ -216,13 +235,13 @@
             }
         },
         mounted() {
-            axios.get('http://127.0.0.1:8000/currency_list_json').then(res => {
+            axios.get(`${baseUrl}/currency_list_json`).then(res => {
                 this.currencies = res.data.currencies
                 this.loadingLatest = true
                
                 // console.log(this.currencies)
             })
-             axios.get('http://127.0.0.1:8000/exchanges/exchange_list').then(res => {
+             axios.get(`${baseUrl}/exchanges/exchange_list`).then(res => {
                 console.log('i got here')
                 this.loadingLatest = false
                 this.latestExchanges = res.data.exchanges

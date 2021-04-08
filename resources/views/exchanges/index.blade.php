@@ -11,8 +11,11 @@
             <tr>
                 <th> From </th>
                 <th> To </th>
+                <th> Rate </th>
                 <th> Sell </th>
+                <th> Sell Margin </th>
                 <th> Buy </th>
+                <th> Buy Margin </th>
                 <th> Action </th>
             </tr>
         </thead>
@@ -20,10 +23,13 @@
         <tbody>
             @forelse($exchanges as $exchange)
                 <tr>
-                    <td> {{ $exchange->from }} </td>
-                    <td> <b> {{ $exchange->to }} </b> </td>
+                    <td> <b> {{ $exchange->from }} </b> </td>
+                    <td> {{ $exchange->to }} </td>
+                    <td> <b> {{ $exchange->rate }} </b> </td>
                     <td> <b> {{ $exchange->sell }} </b> </td>
+                    <td> <b> {{ $exchange->sell_margin }} </b> </td>
                     <td> <b> {{ $exchange->buy }} </b> </td>
+                    <td> <b> {{ $exchange->buy_margin }} </b> </td>
                     <td>
                         <a href="{{ route('exchanges.edit', ['exchange' => $exchange->id]) }}"> <i class="fas fa-edit"></i>Edit </a>
                         <form class="d-inline" action="{{ route('exchanges.destroy', ['exchange' => $exchange->id]) }}" method="post">

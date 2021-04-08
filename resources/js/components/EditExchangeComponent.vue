@@ -70,11 +70,13 @@
             Loading The Exchange Please Wait.
         </h5>
         <h5 v-if="error" class="text-danger"> We couldnit load the object Please reload the page </h5>
+        <h5 v-if="validationError" class="text-danger"> Error data not valid. </h5>
+        <h5 v-if="savingError" class="text-danger"> Error Updaing Exchange Please Try again. </h5>
     </div>
 </template>
 
 <script>
-let baseUrl = 'http://127.0.0.1:8000'
+let baseUrl = 'http://currencymaster.herokuapp.com/'
 export default {
     props: {
         id: Number
@@ -87,6 +89,8 @@ export default {
             success: false,
             loadingRate: false,
             liveRateError: false,
+            validationError: false,
+            savingError: false,
             updated: false,
             exchange: {},
             fieldErrors: {
@@ -133,15 +137,25 @@ export default {
 
             axios.put(`${baseUrl}/exchanges/${this.id}`, updateData).then(res => {
                 this.saving = false
-                if(res.data.status === 'success') {
+                if(res.status === 200) {
                     this.success = true
                     this.updated = true
                     setTimeout(() => { this.success = false }, 3000)
                     this.clearForm()
+                } else if (res.status === 400 || res.status == 422) {
+                    this.saving = false
+                    this.validationError = true
+                    setTimeout(() => { this.validationError = false }, 3000)
+                } else {
+                    this.saving = false
+                    this.savingError = true
+                    setTimeout(() => { this.savingError = false }, 3000)
                 }
                 
             }).catch(err => {
                 this.saving = false
+                this.savingError = true
+                setTimeout(() => { this.savingError = false }, 3000)
                 console.log('error')
             })
         },
@@ -161,7 +175,10 @@ export default {
             this.loadingRate = true
             axios.get(
                 `https://xecdapi.xe.com/v1/convert_from.json/?from=${this.exchange.from}&to=${this.exchange.to}&amount=1`,
-                { auth: { username: 'mohamedsalem35114584', password: 'nbnpgpn51ult5f8259vgn8kei' } }
+                { 
+                    auth: { username: 'co493817284', password: 'lkbd1toj4pr99ce9gauem8nkoq' },
+                    headers: { 'crossorigin': true }
+                 }
             ).then(res => {
                 this.loadingRate = false
                 this.liveRateError = false

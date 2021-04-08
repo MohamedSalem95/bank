@@ -9,7 +9,7 @@
     </a>
     <p>
         <b class="text-muted">
-            Total of {{ $groups->count() }} {{ Str::plural('group', $groups->count()) }}
+            Total of {{ $group_count }} {{ Str::plural('group', $group_count) }}
         </b>
     </p>
     <table class="table table-striped table-sm table-hover table-bordered">
@@ -52,6 +52,8 @@
         </tbody>
 
     </table>
+
+    {{ $groups->links('pagination::bootstrap-4') }}
 
    
 

@@ -35,17 +35,34 @@
                         </a>
                     </li>
 
-
+                    
                     <li class="nav-item">
                         <a href="{{ route('currencies') }}" class="nav-link">
                             <i class="fas fa-pound-sign"></i> Currencies Api
                         </a>
                     </li>
+                    
 
                     <li class="nav-item">
                         <a href="{{ route('exchanges.index') }}" class="nav-link">
                         <i class="fas fa-exchange-alt"></i> Exchange
                         </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <i class="fas fa-desktop"></i> Screens
+                        </a>
+
+                       
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            
+                            <a href="{{ route('screen1') }}" class="dropdown-item">
+                                Screen1
+                            </a>
+                
+                        </div>
                     </li>
 
                     

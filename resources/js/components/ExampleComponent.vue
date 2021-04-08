@@ -34,7 +34,7 @@
            <b class="text-danger"> 
                Some error Happended please Reload Page! 
                or click 
-               <a href="http://currencymaster.herokuapp.com/companies"> HERE </a>
+               <a href="http://currencymaster.herokuapp.com/currencies_list"> HERE </a>
             </b>
        </p>
     </div>
@@ -53,8 +53,8 @@
             this.loading = true
             axios.get('https://xecdapi.xe.com/v1/currencies.json?obsolete=true', {
                 auth: {
-                    username: 'mohamedsalem35114584',
-                    password: 'nbnpgpn51ult5f8259vgn8kei'
+                    username: 'co493817284',
+                    password: 'lkbd1toj4pr99ce9gauem8nkoq'
                 },
                 headers: {
                     //'Access-Control-Allow-Origin': '*'

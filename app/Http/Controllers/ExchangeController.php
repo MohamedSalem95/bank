@@ -21,6 +21,16 @@ class ExchangeController extends Controller {
     }
 
     public function store(Request $request) {
+        $validated = $request->validate([
+            'from' => 'required',
+            'to' => 'required',
+            'rate' => 'required',
+            'sell' => 'required',
+            'buy' => 'required',
+            'sell_margin' => 'required',
+            'buy_margin' => 'required'
+        ]);
+        if(!$validated) return response()->json(['status' => 'error', 'msg' => 'not valid'], 400);
         $exchange = new Exchange([
             'from' => $request->from,
             'to' => $request->to,
@@ -57,6 +67,10 @@ class ExchangeController extends Controller {
     public function destroy(Request $request, Exchange $exchange) {
         $exchange->delete();
         return redirect(route('exchanges.index'))->with('success', 'Exchange deleted with success');
+    }
+
+    public function screen1() {
+        return view('exchanges.screen1');
     }
     
 }
