@@ -26,8 +26,10 @@
                             <td> {{ currency.iso }} </td>
                             <td> {{ currency.currency_name }} </td>
                     </tr>
+                    
                </tbody>
            </table>
+           <p></p>
        </div>
            
        <p v-if="error">

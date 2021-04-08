@@ -45,7 +45,7 @@
 </template>
 
 <script>
-let baseUrl = 'http://currencymaster.herokuapp.com/'
+let baseUrl = 'http://currencymaster.herokuapp.com'
 export default {
     data () {
         return {
