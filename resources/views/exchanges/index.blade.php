@@ -45,7 +45,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5">
+                    <td colspan="8">
                         <p class="text-center">
                             <b class="text-muted"> No Data Here 🐠 </b>
                         </p>
